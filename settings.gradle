@@ -16,6 +16,9 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Pokedex"
 include ':application'
+include ':data'
+include ':domain'
 
 apply from: "config.gradle"
+
 

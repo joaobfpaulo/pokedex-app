@@ -1,0 +1,10 @@
+dependencies {
+    implementation libs.javax.inject
+
+    //Coroutines
+    implementation libs.kotlinx.coroutines.core
+
+    //Tests
+    testImplementation libs.junit
+    testImplementation libs.kotlinx.coroutines.test
+}
