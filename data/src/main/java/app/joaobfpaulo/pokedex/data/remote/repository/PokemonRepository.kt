@@ -1,5 +1,6 @@
 package app.joaobfpaulo.pokedex.data.remote.repository
 
+import app.joaobfpaulo.pokedex.data.remote.model.response.mapper.GenerationMapper
 import app.joaobfpaulo.pokedex.data.remote.model.response.mapper.PokedexMapper
 import app.joaobfpaulo.pokedex.data.remote.model.response.mapper.PokemonMapper
 import app.joaobfpaulo.pokedex.data.remote.provider.PokemonRemoteProvider
@@ -12,17 +13,23 @@ import javax.inject.Inject
 
 class PokemonRepository @Inject constructor(
     private val provider: PokemonRemoteProvider,
+    private val generationMapper: GenerationMapper,
     private val pokedexMapper: PokedexMapper,
     private val pokemonMapper: PokemonMapper,
 ) : IPokemonRepository {
 
-    override fun getPokemonList(limit: Int, offset: Int): Flow<PokedexModel> =
-        provider.getPokemonList(limit, offset).map {
-            pokedexMapper.mapPokemonListToPokedexModel(it)
+    override fun getGenerationList(): Flow<Map<Int, String>> =
+        provider.getGenerationList().map {
+            generationMapper.mapGenerationListToGenerationListModel(it)
         }
 
-    override fun getPokemonInfo(pokemonName: String): Flow<PokemonModel> =
-        provider.getPokemonInfo(pokemonName).map {
+    override fun getGenerationPokedex(generation: Int): Flow<PokedexModel> =
+        provider.getGenerationInfo(generation).map {
+            pokedexMapper.mapGenerationToPokedexModel(it.pokemonSpecies)
+        }
+
+    override fun getPokemonInfo(number: Int): Flow<PokemonModel> =
+        provider.getPokemonInfo(number).map {
             pokemonMapper.mapPokemonInfoToPokemonModel(it)
         }
 }

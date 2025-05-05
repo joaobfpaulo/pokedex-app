@@ -18,7 +18,9 @@ rootProject.name = "Pokedex"
 include ':application'
 include ':data'
 include ':domain'
+include ':presentation'
 
 apply from: "config.gradle"
+
 
 

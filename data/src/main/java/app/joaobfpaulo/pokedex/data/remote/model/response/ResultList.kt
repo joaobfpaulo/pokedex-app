@@ -3,7 +3,7 @@ package app.joaobfpaulo.pokedex.data.remote.model.response
 
 import com.google.gson.annotations.SerializedName
 
-data class PokemonList(
+data class ResultList(
     @SerializedName("count") val count: Int,
     @SerializedName("next") val next: String,
     @SerializedName("previous") val previous: String?,

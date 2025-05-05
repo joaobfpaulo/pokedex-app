@@ -1,4 +1,4 @@
-package app.joaobfpaulo.pokedex.application.theme
+package app.joaobfpaulo.pokedex.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import app.joaobfpaulo.pokedex.application.R
+import app.joaobfpaulo.pokedex.presentation.R
 
 
 val Roboto = FontFamily(

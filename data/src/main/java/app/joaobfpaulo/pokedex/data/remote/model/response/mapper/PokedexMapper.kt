@@ -1,6 +1,6 @@
 package app.joaobfpaulo.pokedex.data.remote.model.response.mapper
 
-import app.joaobfpaulo.pokedex.data.remote.model.response.PokemonList
+import app.joaobfpaulo.pokedex.data.remote.model.response.Result
 import app.joaobfpaulo.pokedex.domain.model.PokedexEntryModel
 import app.joaobfpaulo.pokedex.domain.model.PokedexModel
 import javax.inject.Inject
@@ -11,16 +11,12 @@ class PokedexMapper @Inject constructor() {
         private const val SPRITE_URL_SUFFIX = ".png"
         private const val URL_SUFFIX = "/"
     }
-
-    fun mapPokemonListToPokedexModel(response: PokemonList) : PokedexModel =
+    fun mapGenerationToPokedexModel(results: List<Result>) : PokedexModel =
         PokedexModel(
-            count = response.count,
-            next = response.next,
-            previous = response.previous,
-            entries = response.results.map { entry ->
+            entries = results.sortedBy { parseNumber(it.url) }.map { entry ->
                 val number = parseNumber(entry.url)
                 PokedexEntryModel(
-                    pokemonName = capitalizedName(entry.name),
+                    pokemonName = "#$number ${capitalizedName(entry.name)}",
                     imageUrl = buildSpriteUrl(number),
                     number = number
                 )

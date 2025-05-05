@@ -5,7 +5,9 @@ import app.joaobfpaulo.pokedex.domain.model.PokemonModel
 import kotlinx.coroutines.flow.Flow
 
 interface IPokemonRepository {
-    fun getPokemonList(limit: Int, offset: Int): Flow<PokedexModel>
+    fun getGenerationList(): Flow<Map<Int, String>>
 
-    fun getPokemonInfo(pokemonName: String): Flow<PokemonModel>
+    fun getGenerationPokedex(generation: Int): Flow<PokedexModel>
+
+    fun getPokemonInfo(number: Int): Flow<PokemonModel>
 }

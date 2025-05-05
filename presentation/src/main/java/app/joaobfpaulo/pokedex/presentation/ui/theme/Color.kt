@@ -1,4 +1,4 @@
-package app.joaobfpaulo.pokedex.application.theme
+package app.joaobfpaulo.pokedex.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
