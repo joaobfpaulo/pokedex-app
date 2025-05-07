@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">Pokedex</string>
+    <string name="error">Error</string>
+    <string name="error_message">Something wrong happened try again later</string>
+    <string name="retry">Retry</string>
+    <string name="clear">Clear</string>
+    <string name="kilograms">kg</string>
+    <string name="meters">m</string>
+    <string name="menu">Menu</string>
+    <string name="pokemon">Pokemon</string>
+    <string name="search_pokemon">Search Pokemon</string>
+    <string name="attack">Atk</string>
+    <string name="defence">Def</string>
+    <string name="hit_points">HP</string>
+    <string name="special_attack">SpAtk</string>
+    <string name="special_defense">SpDef</string>
+    <string name="speed">Spd</string>
 </resources>

@@ -2,7 +2,7 @@ package app.joaobfpaulo.pokedex.presentation.navigation.screens
 
 const val GENERATION_POKEDEX_PATH = "generation_pokedex"
 const val DETAIL_PATH = "detail"
-const val ERROR_PATH = "detail"
+const val ERROR_PATH = "error"
 const val GENERATION_PATH = "generation_path"
 const val NUMBER_PATH = "number"
 const val NAME_PATH = "name"
@@ -19,9 +19,9 @@ enum class Route(val value: String, val paths: List<String>) {
     Detail(
         value = DETAIL_PATH,
         paths = listOf(
-            DOMINANT_COLOR_PATH,
             NAME_PATH,
-            NUMBER_PATH
+            NUMBER_PATH,
+            DOMINANT_COLOR_PATH,
         )
     ),
     Generation(
@@ -35,13 +35,13 @@ enum class Route(val value: String, val paths: List<String>) {
             prefix = PATH_SEPARATOR, 
             transform = { "$PATH_PREFIX$it$PATH_SUFFIX" }
         )}"
-        fun Route.createRoute(vararg args: String) : String {
+        fun Route.createRoute(vararg args: String?) : String {
             var route = getRoute().replace(PATH_PREFIX, "").replace(PATH_SUFFIX, "")
             require(args.size == paths.size) {
                 "The number of args(${args.size}) doesn't match with the number of paths(${paths.size})"
             }
             repeat(paths.size) { idx ->
-                route = route.replace(paths[idx], args[idx])
+                route = route.replace(paths[idx], args[idx].toString())
             }
             return route
         }

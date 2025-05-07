@@ -3,15 +3,13 @@ package app.joaobfpaulo.pokedex.presentation.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val LightBlue = Color(0xFFBAC7FF)
-val lightGrey = Color(0xFFAAAAAA)
 
-//TODO better colors
-val HPColor = Color(0xFFF5FF00)
-val AtkColor = Color(1f, 0f, 0f, 0.66f)
-val DefColor = Color(0f, 0f, 1f, 0.44f)
-val SpAtkColor = Color(0.671f, 0f, 1f, 0.57f)
-val SpDefColor = Color(1f, 0f, 0.8f, 0.7f)
-val SpdColor = Color(0f, 1f, 0.063f, 0.55f)
+val HPColor = Color(0xFF69DC12)
+val AtkColor = Color(0xFFEFCC18)
+val DefColor = Color(0xFFE86412)
+val SpAtkColor = Color(0xFF14C3F1)
+val SpDefColor = Color(0xFF4A6ADF)
+val SpdColor = Color(0xFFD51DAD)
 
 val TypeNormal = Color(0xFFA8A77A)
 val TypeFire = Color(0xFFEE8130)

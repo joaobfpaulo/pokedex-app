@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -47,6 +48,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import app.joaobfpaulo.pokedex.domain.model.PokemonModel
 import app.joaobfpaulo.pokedex.domain.model.enums.Type
 import app.joaobfpaulo.pokedex.presentation.R
+import app.joaobfpaulo.pokedex.presentation.ui.common.ErrorView
 import app.joaobfpaulo.pokedex.presentation.ui.extensions.parseStatToAbbr
 import app.joaobfpaulo.pokedex.presentation.ui.extensions.parseStatToColor
 import app.joaobfpaulo.pokedex.presentation.ui.extensions.parseTypeName
@@ -132,7 +134,7 @@ fun PokemonDetailScreen(
                 }
             }
             is PokemonUiState.Error -> {
-                //TODO
+                ErrorView { viewModel.getPokemonInfo(number) }
             }
             is PokemonUiState.Loading -> {
                 CircularProgressIndicator(
@@ -183,11 +185,11 @@ fun PokemonTypeSection(types: List<Type>) {
                     .weight(1f)
                     .padding(horizontal = 8.dp)
                     .clip(CircleShape)
-                    .background(parseTypeToColor(type))
+                    .background(type.parseTypeToColor())
                     .height(35.dp)
             ) {
                 Text(
-                    text = parseTypeName(type),
+                    text = type.parseTypeName(),
                     color = Color.White,
                     fontSize = 18.sp
                 )
@@ -213,8 +215,8 @@ fun PokemonDetailDataSection(
     ) {
         PokemonDetailDataItem(
             dataValue = pokemonWeightInKg,
-            dataUnit = "kg",
-            dataIcon = painterResource(id = R.drawable.ic_weight),
+            dataUnit = stringResource(R.string.kilograms),
+            dataIcon = painterResource(R.drawable.ic_weight),
             modifier = Modifier.weight(1f)
         )
         Spacer(
@@ -224,8 +226,8 @@ fun PokemonDetailDataSection(
         )
         PokemonDetailDataItem(
             dataValue = pokemonHeightInMeters,
-            dataUnit = "m",
-            dataIcon = painterResource(id = R.drawable.ic_height),
+            dataUnit = stringResource(R.string.meters),
+            dataIcon = painterResource(R.drawable.ic_height),
             modifier = Modifier.weight(1f)
         )
     }
@@ -332,10 +334,10 @@ fun PokemonBaseStats(
 
         pokemonInfo.stats.entries.forEachIndexed { index, stat ->
             PokemonStat(
-                statName = parseStatToAbbr(stat.key),
+                statName = stat.key.parseStatToAbbr(),
                 statValue = stat.value,
                 statMaxValue = maxBaseStat,
-                statColor = parseStatToColor(stat.key),
+                statColor = stat.key.parseStatToColor(),
                 animDelay = index * animDelayPerItem
             )
             Spacer(modifier = Modifier.height(8.dp))

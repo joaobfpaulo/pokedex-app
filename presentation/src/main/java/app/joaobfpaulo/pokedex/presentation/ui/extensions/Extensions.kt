@@ -1,16 +1,19 @@
 package app.joaobfpaulo.pokedex.presentation.ui.extensions
 
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import app.joaobfpaulo.pokedex.domain.model.enums.Stat
 import app.joaobfpaulo.pokedex.domain.model.enums.Type
 import app.joaobfpaulo.pokedex.presentation.ui.theme.*
+import app.joaobfpaulo.pokedex.presentation.R
 
-fun parseTypeName(type: Type) : String {
-    return type.name.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+fun Type.parseTypeName() : String {
+    return name.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
 }
 
-fun parseTypeToColor(type: Type): Color {
-    return when(type) {
+fun Type.parseTypeToColor(): Color {
+    return when(this) {
         Type.BUG -> TypeBug
         Type.DARK -> TypeDark
         Type.DRAGON -> TypeDragon
@@ -33,8 +36,8 @@ fun parseTypeToColor(type: Type): Color {
     }
 }
 
-fun parseStatToColor(stat: Stat): Color {
-    return when(stat) {
+fun Stat.parseStatToColor(): Color {
+    return when(this) {
         Stat.ATTACK -> AtkColor
         Stat.DEFENSE -> DefColor
         Stat.HP -> HPColor
@@ -45,14 +48,18 @@ fun parseStatToColor(stat: Stat): Color {
     }
 }
 
-fun parseStatToAbbr(stat: Stat): String {
-    return when(stat) {
-        Stat.ATTACK -> "Atk"
-        Stat.DEFENSE -> "Def"
-        Stat.HP -> "HP"
-        Stat.SPECIAL_ATTACK -> "SpAtk"
-        Stat.SPECIAL_DEFENSE -> "SpDef"
-        Stat.SPEED -> "Spd"
-        else -> ""
-    }
+@Composable
+fun Stat.parseStatToAbbr(): String {
+    return stringResource(
+        when(this) {
+            Stat.ATTACK -> R.string.attack
+            Stat.DEFENSE -> R.string.defence
+            Stat.HP -> R.string.hit_points
+            Stat.SPECIAL_ATTACK -> R.string.special_attack
+            Stat.SPECIAL_DEFENSE -> R.string.special_defense
+            else -> R.string.speed
+        }
+    )
+
+
 }

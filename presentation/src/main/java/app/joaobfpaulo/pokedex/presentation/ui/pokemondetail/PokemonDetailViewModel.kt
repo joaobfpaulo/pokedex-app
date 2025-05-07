@@ -2,7 +2,8 @@ package app.joaobfpaulo.pokedex.presentation.ui.pokemondetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.joaobfpaulo.pokedex.domain.usecases.GetPokemonUseCase
+import app.joaobfpaulo.pokedex.domain.cache.CacheMode
+import app.joaobfpaulo.pokedex.domain.usecases.GetPokemonByNumberUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PokemonDetailViewModel @Inject constructor(
-    private val useCase: GetPokemonUseCase
+    private val useCase: GetPokemonByNumberUseCase
 ) : ViewModel() {
     private val _pokemonUiStateFlow = MutableStateFlow<PokemonUiState>(PokemonUiState.Loading)
     val pokemonUiStateFlow: StateFlow<PokemonUiState> = _pokemonUiStateFlow
@@ -23,9 +24,9 @@ class PokemonDetailViewModel @Inject constructor(
     }
 
     fun getPokemonInfo(number: Int?) {
+        require(number != null) { "Pokemon number should not be null" }
         viewModelScope.launch {
-            require(number != null) { "Pokemon number should not be null" }
-            useCase(number)
+            useCase(number = number, cacheMode = CacheMode.CACHE)
                 .catch {
                     Timber.e(it)
                     updateState(PokemonUiState.Error(it.message ?: it.localizedMessage))

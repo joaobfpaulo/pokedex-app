@@ -1,16 +1,12 @@
 package app.joaobfpaulo.pokedex.presentation.navigation.drawer
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
@@ -37,17 +33,17 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import app.joaobfpaulo.pokedex.presentation.R
 import app.joaobfpaulo.pokedex.presentation.navigation.RootNavigationHost
 import app.joaobfpaulo.pokedex.presentation.navigation.screens.Route
+import app.joaobfpaulo.pokedex.presentation.navigation.screens.Route.Companion.createRoute
 import app.joaobfpaulo.pokedex.presentation.navigation.screens.Route.Companion.getRoute
+import app.joaobfpaulo.pokedex.presentation.navigation.search.SearchView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -75,35 +71,30 @@ fun DrawerNavigation(
                 ) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Image(
-                        painter = painterResource(id = R.drawable.ic_international_pok_mon_logo),
-                        contentDescription = "Pokemon", //TODO extract string resource
+                        painter = painterResource(R.drawable.ic_international_pok_mon_logo),
+                        contentDescription = stringResource(R.string.pokemon),
                         modifier = Modifier
                             .fillMaxWidth()
                             .align(CenterHorizontally)
                     )
                     Spacer(modifier = Modifier.height(24.dp))
-                    Box(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
-                    ) {
-                        BasicTextField(
-                            value = "",
-                            onValueChange = {
-//                            text = it
-//                            onSearch(it)
-                            },
-                            maxLines = 1,
-                            singleLine = true,
-                            textStyle = TextStyle(color = MaterialTheme.colorScheme.onSurface),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .shadow(5.dp, CircleShape)
-                                .background(MaterialTheme.colorScheme.surface, CircleShape)
-                                .padding(horizontal = 20.dp, vertical = 12.dp)
-                                .onFocusChanged {
-//                                isHintDisplayed = it.isFocused && text.isEmpty()
-                                }
-                        )
-                    }
+
+                    SearchView(
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                        onSearchItemClicked = { name, number ->
+                            coroutineScope.launch {
+                                drawerState.close()
+                                navController.navigate(
+                                    Route.Detail.createRoute(
+                                        name,
+                                        number,
+                                        null
+                                    )
+                                )
+
+                            }
+                        }
+                    )
                     Spacer(modifier = Modifier.height(24.dp))
                     menus?.forEach {
                         NavigationDrawerItem(
@@ -113,9 +104,9 @@ fun DrawerNavigation(
                             onClick = {
                                 coroutineScope.launch {
                                     drawerState.close()
+                                    selectedMenu = it
+                                    navController.navigate(it.route)
                                 }
-                                selectedMenu = it
-                                navController.navigate(it.route)
                             }
                         )
                     }
@@ -144,7 +135,7 @@ fun DrawerNavigation(
                                         hasError -> Icons.Filled.Close
                                         else -> Icons.AutoMirrored.Filled.ArrowBack
                                     },
-                                    contentDescription = "Menu" //TODO extract string resource
+                                    contentDescription = stringResource(R.string.menu)
                                 )
                             }
                         )

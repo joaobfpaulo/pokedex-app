@@ -3,7 +3,8 @@ package app.joaobfpaulo.pokedex.presentation.ui.splashscreen
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.joaobfpaulo.pokedex.domain.usecases.GetGenerationListUseCase
+import app.joaobfpaulo.pokedex.domain.cache.CacheMode
+import app.joaobfpaulo.pokedex.domain.usecases.GetPokedexUseCase
 import app.joaobfpaulo.pokedex.presentation.navigation.drawer.DrawerMenuItem
 import app.joaobfpaulo.pokedex.presentation.navigation.screens.Route
 import app.joaobfpaulo.pokedex.presentation.navigation.screens.Route.Companion.createRoute
@@ -15,8 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val useCase: GetGenerationListUseCase
-): ViewModel() {
+    private val useCase: GetPokedexUseCase
+) : ViewModel() {
     val isLoading = mutableStateOf(true)
     val hasError = mutableStateOf(false)
     val menus = mutableStateOf<List<DrawerMenuItem>?>(null)
@@ -27,14 +28,14 @@ class SplashViewModel @Inject constructor(
 
     private fun syncData() {
         viewModelScope.launch {
-            useCase()
+            useCase(cacheMode = CacheMode.CACHE)
                 .catch {
                     Timber.e(it)
                     hasError.value = true
                     isLoading.value = false
                 }
-                .collect { generations ->
-                    menus.value = generations.map { entry ->
+                .collect { pokedex ->
+                    menus.value = pokedex.generations.map { entry ->
                         DrawerMenuItem(
                             title = entry.value,
                             route = Route.Generation.createRoute(entry.key.toString())
