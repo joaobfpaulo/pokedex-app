@@ -62,5 +62,5 @@ Contributions are welcome! Please open issues and pull requests as needed.
 ---
 
 ## 🙌 Acknowledgements
-PokéAPI
-Android Dev Community
+- PokéAPI
+- Android Dev Community
