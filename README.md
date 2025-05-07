@@ -34,7 +34,9 @@ A modern Pokédex Android application built with Kotlin and powered by clean arc
 
 ## 📸 Screenshots
 
-> *(Include screenshots here)*
+<img src="https://github.com/user-attachments/assets/bd9a4175-2778-4a0b-ac95-a3b67cf5351f" width="200" height="400" />
+<img src="https://github.com/user-attachments/assets/a0049c57-add1-4650-a06c-59adf94fd62a" width="200" height="400" />
+<img src="https://github.com/user-attachments/assets/85045ddb-457a-451c-823a-cc7078135679" width="200" height="400" />
 
 ---
 
