@@ -58,7 +58,7 @@ import kotlin.math.round
 
 @Composable
 fun PokemonDetailScreen(
-    dominantColor: Color,
+    dominantColor: Color?,
     number: Int?,
     topPadding: Dp = 20.dp,
     pokemonImageSize: Dp = 200.dp,
@@ -69,7 +69,7 @@ fun PokemonDetailScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(dominantColor)
+            .background(dominantColor ?: MaterialTheme.colorScheme.background)
     ) {
         Box(
             modifier = Modifier
