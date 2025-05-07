@@ -21,6 +21,7 @@ import app.joaobfpaulo.pokedex.presentation.navigation.screens.Route.Companion.g
 import app.joaobfpaulo.pokedex.presentation.ui.common.ErrorView
 import app.joaobfpaulo.pokedex.presentation.ui.generation.GenerationPokedexScreen
 import app.joaobfpaulo.pokedex.presentation.ui.pokemondetail.PokemonDetailScreen
+import app.joaobfpaulo.pokedex.presentation.ui.theme.LightBlue
 
 
 @Composable
@@ -60,7 +61,7 @@ fun RootNavigationHost(
             val dominantColor = remember {
                 it.arguments?.getString(DOMINANT_COLOR_PATH)?.let { color ->
                     Color(color.toInt())
-                } ?: Color.LightGray
+                } ?: LightBlue
             }
 
             val number = remember {

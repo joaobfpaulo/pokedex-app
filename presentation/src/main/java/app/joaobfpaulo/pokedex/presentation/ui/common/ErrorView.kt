@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,26 +28,31 @@ fun ErrorView(onRetry: (() -> Unit)? = null) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(horizontal = 16.dp)
             .background(MaterialTheme.colorScheme.background)
     ) {
-        Column(modifier = Modifier.align(Alignment.Center)) {
+        Column(modifier =
+            Modifier
+                .align(Alignment.Center)
+                .fillMaxWidth()
+                .shadow(10.dp, RoundedCornerShape(10.dp))
+                .clip(RoundedCornerShape(10.dp))
+                .background(MaterialTheme.colorScheme.surface)
+                .padding(16.dp)
+        ) {
             Text(
                 text = stringResource(R.string.error_message),
                 color = MaterialTheme.colorScheme.error,
                 textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .shadow(10.dp, RoundedCornerShape(10.dp))
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(MaterialTheme.colorScheme.surface)
-                    .padding(16.dp)
             )
             onRetry?.let { onRetry ->
                 Spacer(modifier = Modifier.height(8.dp))
                 Button(
                     onClick = { onRetry() },
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    colors = ButtonDefaults.buttonColors().copy(
+                        containerColor = MaterialTheme.colorScheme.error
+                    )
                 ) {
                     Text(text = stringResource(R.string.retry))
                 }

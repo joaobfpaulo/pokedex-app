@@ -27,37 +27,6 @@ class GenerationPokedexViewModel @Inject constructor(
         _generationPokedexUiStateFlow.value = state
     }
 
-//    private var cachedPokemonList = listOf<PokedexEntryModel>()
-//    private var isSearchStarting = true
-//    var isSearching = mutableStateOf(false)
-
-    //TODO implement cache and do search queries in cache
-//    fun searchPokemonList(query: String) {
-//        val listToSearch = if(isSearchStarting) {
-//            pokemonList.value
-//        } else {
-//            cachedPokemonList
-//        }
-//        viewModelScope.launch(Dispatchers.Default) {
-//            if(query.isEmpty()) {
-//                pokemonList.value = cachedPokemonList
-//                isSearching.value = false
-//                isSearchStarting = true
-//                return@launch
-//            }
-//            val results = listToSearch.filter {
-//                it.pokemonName.contains(query.trim(), ignoreCase = true) ||
-//                        it.number.toString() == query.trim()
-//            }
-//            if(isSearchStarting) {
-//                cachedPokemonList = pokemonList.value
-//                isSearchStarting = false
-//            }
-//            pokemonList.value = results
-//            isSearching.value = true
-//        }
-//    }
-
     fun loadGenerationPokedex(generation: Int?) {
         viewModelScope.launch {
             generation?.let {
@@ -66,7 +35,7 @@ class GenerationPokedexViewModel @Inject constructor(
                         Timber.e(it)
                         updateState(
                             GenerationPokedexUiState.Error(
-                                it.message ?: it.localizedMessage
+                                it.message ?: it.localizedMessage.orEmpty()
                             )
                         )
                     }.collect { result ->
