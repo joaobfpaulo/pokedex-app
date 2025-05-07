@@ -58,11 +58,7 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 ---
 
-## 🤝 Contributing
-Contributions are welcome! Please open issues and pull requests as needed.
-
----
-
 ## 🙌 Acknowledgements
-- PokéAPI
+- [Philipp Lackner](https://github.com/philipplackner)
+- [PokéAPI](https://pokeapi.co/)
 - Android Dev Community
